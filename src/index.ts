@@ -1,11 +1,14 @@
 import dotenv from "dotenv";
 import { AddressInfo } from "net";
 import express, { Request, Response } from "express";
+import { userRouter } from "./routes/userRouter";
 
 dotenv.config();
 const app = express();
 
 app.use(express.json());
+
+app.use("/user", userRouter);
 
 // PARA TESTAR A CONEXÃO COM O BANCO DE DADOS
 app.get("/teste", async (req: Request, res: Response) => {
