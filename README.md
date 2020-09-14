@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS user_labesound(
   email VARCHAR(255) NOT NULL UNIQUE,
   nickname VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL
-)
+);
 ```
 ### TABELA DE MÚSICAS:
 ```
