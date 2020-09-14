@@ -25,16 +25,16 @@ CREATE TABLE IF NOT EXISTS music_labesound(
 ### TABELA DE GÊNEROS:
 ```
 CREATE TABLE genre_labesound(
-	id VARCHAR (255) PRIMARY KEY,
+  id VARCHAR (255) PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 ```
 ### TABELA DE GÊNERO - MÚSICA:
 ```
 CREATE TABLE music_genre_labesound(
-	genre_id VARCHAR (255),
+  genre_id VARCHAR (255),
   music_id VARCHAR(255),    
-  FOREIGN KEY (music_id) REFERENCES labemusic_music(id),
-  FOREIGN KEY (genre_id) REFERENCES labemusic_genre(id)    
+  FOREIGN KEY (music_id) REFERENCES music_labesound(id),
+  FOREIGN KEY (genre_id) REFERENCES genre_labesound(id)    
 );
 ```
