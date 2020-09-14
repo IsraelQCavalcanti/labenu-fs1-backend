@@ -1,5 +1,5 @@
 # labenu-fs1-backend
-Projeto full-stack 1 Labenu: Back-end
+Projeto full-stack 1 Labenu: Back-end LABESOUND
 
 ### TABELA DE USUÁRIOS:
 ```
