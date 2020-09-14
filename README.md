@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS user_labesound(
   password VARCHAR(255) NOT NULL
 )
 ```
-
 ### TABELA DE MÚSICAS:
 ```
 CREATE TABLE IF NOT EXISTS music_labesound(
@@ -23,7 +22,6 @@ CREATE TABLE IF NOT EXISTS music_labesound(
   album VARCHAR(255) NOT NULL
 );
 ```
-
 ### TABELA DE GÊNEROS:
 ```
 CREATE TABLE genre_labesound(
@@ -31,7 +29,6 @@ CREATE TABLE genre_labesound(
   name VARCHAR(255) NOT NULL
 );
 ```
-
 ### TABELA DE GÊNERO - MÚSICA:
 ```
 CREATE TABLE music_genre_labesound(
