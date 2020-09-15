@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { HashManager } from "../services/HashManager";
 import { BaseDatabase } from "../data/BaseDatabase";
 import { Authenticator } from "../services/Authenticator";
-import { UserInputDTO } from "../model/User";
+import { UserInputDTO, LoginInputDTO } from "../model/User";
 import { UserBusiness } from "../business/UserBusiness";
 
 export class UserController {
@@ -38,6 +38,28 @@ export class UserController {
     } catch (error) {
       res.status(400).send({ error: error.message });
     }
+    await BaseDatabase.destroyConnection();
+  }
+
+  // VERIFICAR LOGIN
+  public async login(req: Request, res: Response) {
+    try {
+      const input: LoginInputDTO = {
+        emailOrNickname: req.body.emailOrNickname,
+        password: req.body.password,
+      };
+
+      const userBusiness = new UserBusiness();
+      const user = await userBusiness.getUserByEmailOrNickname(input);
+
+      const authenticator = new Authenticator();
+      const accessToken = authenticator.generateToken({ id: user.getId() });
+
+      res.status(200).send({ token: accessToken });
+    } catch (error) {
+      res.status(400).send({ error: error.message });
+    }
+
     await BaseDatabase.destroyConnection();
   }
 }

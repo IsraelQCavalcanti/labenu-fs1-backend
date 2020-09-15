@@ -1,16 +1,12 @@
 {
-  "name": "julian-video-gabarito",
+  "name": "projeto-fs-01-lbn",
   "version": "1.0.0",
-  "description": "gabarito do labook",
+  "description": "Projeto Full-stack 01 Labenu",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node ./src/index.ts"
   },
-  "keywords": [
-    "labook",
-    "gabarito"
-  ],
   "author": "Israel Cavalcanti",
   "license": "ISC",
   "dependencies": {
