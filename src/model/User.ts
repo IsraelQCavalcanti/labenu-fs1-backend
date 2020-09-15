@@ -60,9 +60,16 @@ export class User {
   }
 }
 
+// INTERFACE PARA SIGNUP
 export interface UserInputDTO {
   email: string;
   name: string;
   nickname: string;
+  password: string;
+}
+
+// INTERFACE PARA LOGIN
+export interface LoginInputDTO {
+  emailOrNickname: string;
   password: string;
 }

@@ -9,7 +9,7 @@ export class Authenticator {
   // GERAR UM TOKEN
   public generateToken(
     input: AuthenticationData,
-    expiresIn: string = process.env.ACESS_TOKEN_EXPIRES_IN!
+    expiresIn: string = process.env.ACCESS_TOKEN_EXPIRES_IN!
   ): string {
     const token = jwt.sign(
       {
