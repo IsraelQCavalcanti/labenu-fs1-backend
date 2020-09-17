@@ -1,6 +1,7 @@
 # labenu-fs1-backend
 Projeto full-stack 1 Labenu: Back-end LABESOUND
 
+### QUERYS PARA TABELAS CRIADAS:
 ### TABELA DE USUÁRIOS:
 ```
 CREATE TABLE IF NOT EXISTS user_labesound(
