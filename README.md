@@ -42,7 +42,7 @@ CREATE TABLE music_genre_labesound(
 ### REQUISIÇÃO USUÁRIOS 
 ### SIGNUP
 ```
-.../user/signup
+(POST) .../user/signup
 - RAW -> JSON:
 {
     "email": "SEU_EMAIL_AQUI",
@@ -53,7 +53,7 @@ CREATE TABLE music_genre_labesound(
 ```
 ### LOGIN
 ```
-...user/login
+(POST) ...user/login
 - RAW -> JSON:
 {
     "emailOrNickname": "SEU_EMAIL_OU_NICKNAME_AQUI",
