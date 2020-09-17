@@ -38,3 +38,24 @@ CREATE TABLE music_genre_labesound(
   FOREIGN KEY (genre_id) REFERENCES genre_labesound(id)    
 );
 ```
+### REQUISIÇÃO USUÁRIOS 
+### SIGNUP
+```
+.../user/signup
+- RAW -> JSON:
+{
+    "email": "SEU_EMAIL_AQUI",
+    "name": "SEU_NOME_AQUI",
+    "nickname": "SEU_NICKNAME_AQUI",
+    "password": "SUA_SENHA_AQUI"
+}
+```
+### LOGIN
+```
+...user/login
+- RAW -> JSON:
+{
+    "emailOrNickname": "SEU_EMAIL_OU_NICKNAME_AQUI",
+    "password": "SUA_SENHA_AQUI"
+}
+```
