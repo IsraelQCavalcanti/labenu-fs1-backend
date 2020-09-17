@@ -2,7 +2,7 @@
 Projeto full-stack 1 Labenu: Back-end LABESOUND
 
 ### QUERYS PARA TABELAS CRIADAS:
-### TABELA DE USUÁRIOS:
+### USUÁRIOS:
 ```
 CREATE TABLE IF NOT EXISTS user_labesound(
   id VARCHAR(255) PRIMARY KEY,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS user_labesound(
   password VARCHAR(255) NOT NULL
 );
 ```
-### TABELA DE MÚSICAS:
+### MÚSICAS:
 ```
 CREATE TABLE IF NOT EXISTS music_labesound(
   id VARCHAR(255) PRIMARY KEY,
@@ -23,14 +23,14 @@ CREATE TABLE IF NOT EXISTS music_labesound(
   album VARCHAR(255) NOT NULL
 );
 ```
-### TABELA DE GÊNEROS:
+### GÊNEROS:
 ```
 CREATE TABLE genre_labesound(
   id VARCHAR (255) PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 ```
-### TABELA DE GÊNERO - MÚSICA:
+### GÊNERO - MÚSICA:
 ```
 CREATE TABLE music_genre_labesound(
   genre_id VARCHAR (255),
@@ -39,7 +39,7 @@ CREATE TABLE music_genre_labesound(
   FOREIGN KEY (genre_id) REFERENCES genre_labesound(id)    
 );
 ```
-### REQUISIÇÃO USUÁRIOS 
+### REQUISIÇÃO DO USUÁRIO
 ### SIGNUP
 ```
 (POST) .../user/signup
