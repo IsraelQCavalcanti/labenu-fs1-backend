@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS music_labesound(
   id VARCHAR(255) PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   author VARCHAR(255) NOT NULL,
-  createdAt DATE NOT NULL,
+  createdAt DATETIME NOT NULL DEFAULT current_timestamp,
   file VARCHAR(255) NOT NULL,
   album VARCHAR(255) NOT NULL
 );
