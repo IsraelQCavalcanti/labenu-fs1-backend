@@ -4,7 +4,7 @@ import Knex from "knex";
 export abstract class BaseDatabase {
   private static connection: Knex | null = null;
 
-  // Verificar se há conexão com o banco:
+  // VERIFICAR CONEXÃO COM O BANCO DE DADOS
   protected getConnection(): Knex {
     if (!BaseDatabase.connection) {
       BaseDatabase.connection = knex({
@@ -22,7 +22,7 @@ export abstract class BaseDatabase {
     return BaseDatabase.connection;
   }
 
-  // Destruir a conexão automaticamente
+  // FINALIZAR A CONEXÃO AUTOMATICAMENTE
   public static async destroyConnection(): Promise<void> {
     if (BaseDatabase.connection) {
       await BaseDatabase.connection.destroy();
