@@ -35,8 +35,8 @@ CREATE TABLE genre_labesound(
 CREATE TABLE music_genre_labesound(
   genre_id VARCHAR (255),
   music_id VARCHAR(255),    
-  FOREIGN KEY (music_id) REFERENCES music_labesound(id),
-  FOREIGN KEY (genre_id) REFERENCES genre_labesound(id)    
+  FOREIGN KEY (music_id) REFERENCES Music_labesound(id),
+  FOREIGN KEY (genre_id) REFERENCES Genre_labesound(id)    
 );
 ```
 ### REQUISIÇÃO DO USUÁRIO
