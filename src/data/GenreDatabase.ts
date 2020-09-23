@@ -1,33 +1,30 @@
 import { BaseDatabase } from "./BaseDatabase";
 
 export class GenreDatabase extends BaseDatabase {
-  public static TABLE_GENRE = "genre_labesound";
-  public static TABLE_MUSIC_GENRE = "music_genre_labesound";
-
   // SELECIONAR O ID DO GÊNERO PELO NAME INSERIDO
-  public async getGenre(name: string): Promise<any> {
+  public async getGenresIdByName(name: string[]): Promise<any> {
     try {
       const result = await this.getConnection()
         .select("id")
-        .from(GenreDatabase.TABLE_MUSIC_GENRE)
-        .where({ name });
-      return result[0].id;
+        .from(this.tableNames.genre)
+        .whereIn("name", name);
+
+      return result;
     } catch (error) {
       throw new Error(error.sqlMessage || error.message);
     }
   }
 
   // INSERIR O GÊNERO E MUSICA NA TABELA QUE JUNTA AMBOS
-  public async insertGenreToMusic(musicId: string, genreId: string) {
+  public async insertGenreToMusic(musicId: string, genreId: string[]) {
+    const musicGenreInsert = genreId.map((genre) => ({
+      music_id: musicId,
+      genre_id: genreId,
+    }));
     try {
-      console.log("Music id: " + musicId);
-      console.log("Genre id: " + genreId);
       await this.getConnection()
-        .insert({
-          music_id: musicId,
-          genre_id: genreId,
-        })
-        .into(GenreDatabase.TABLE_MUSIC_GENRE);
+        .insert({ musicGenreInsert })
+        .into(this.tableNames.musicWithGenreId);
     } catch (error) {
       throw new Error(error.sqlMessage || error.message);
     }

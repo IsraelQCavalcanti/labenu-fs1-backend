@@ -1,29 +1,47 @@
+import { Music } from "../model/Music";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class MusicDatabase extends BaseDatabase {
-  public static TABLE_NAME = "music_labesound";
-
-  public async createMusic(
-    id: string,
-    title: string,
-    author: string,
-    createdAt: Date,
-    file: string,
-    album: string,
-    userId: string
-  ) {
+  // CRIAR UMA NOVA MÚSICA
+  public async createMusic(music: Music): Promise<void> {
     try {
       await this.getConnection()
         .insert({
-          id: id,
-          title: title,
-          author: author,
-          createdAt: new Date(createdAt),
-          file: file,
-          album: album,
-          user_id: userId,
+          id: music.getId,
+          title: music.getTitle,
+          author: music.getAuthor,
+          file: music.getFile,
+          album: music.getAlbum,
         })
-        .into(MusicDatabase.TABLE_NAME);
+
+        .into(this.tableNames.music);
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  }
+
+  // BUSCAR TODAS MUSICAS EXISTENTES
+  public async getAllMusics(): Promise<Music[]> {
+    try {
+      const result = await this.getConnection()
+        .select("*")
+        .from(this.tableNames.music);
+
+      return result;
+    } catch (error) {
+      throw new Error(error.sqlMessage || error.message);
+    }
+  }
+
+  // BUSCAR MÚSICA PELO ID
+  public async getMusicById(id: string): Promise<Music> {
+    try {
+      const result = await this.getConnection()
+        .select("*")
+        .from(this.tableNames.music)
+        .where({ id });
+
+      return Music.toMusicModel(result[0]);
     } catch (error) {
       throw new Error(error.sqlMessage || error.message);
     }
