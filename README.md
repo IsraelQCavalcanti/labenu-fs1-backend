@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS music_labesound(
 ```
 CREATE TABLE genre_labesound(
   id VARCHAR (255) PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  name ENUM ("AXÉ", "BLUES", "CLÁSSICA", "COUNTRY", "ELETRÔNICA", "FORRÓ", "FUNK", "GOSPEL", "GROOVE", "HIPHOP", "JAZZ", "MPB", "OUTRO", "PAGODE", "POP", "RAP", "REGGAE", "ROCK", "SAMBA", "SERTANEJO")
 );
 ```
 ### GÊNERO - MÚSICA:
@@ -58,5 +58,17 @@ CREATE TABLE music_genre_labesound(
 {
     "emailOrNickname": "SEU_EMAIL_OU_NICKNAME_AQUI",
     "password": "SUA_SENHA_AQUI"
+}
+```
+### CREATE MUSIC
+```
+(POST) ... music/create
+- HEADERS -> Auhtorization: TOKEN from LOGIN
+- RAW -> JSON:
+{
+    "title": "NOME_DA_MUSICA",
+    "file": "URL_DA_MUSICA",
+    "album": "NOME_DO_ALBUM",
+    "genre": ["GENERO1", "GENERO2"]
 }
 ```
