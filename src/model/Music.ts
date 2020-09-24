@@ -1,7 +1,7 @@
 // INTERFACE PARA CRIAR MUSICA
 export interface MusicInputDTO {
   title: string;
-  author: string;
+  // author: string; QUEM ESTIVER LOGADO, SERÁ O AUTHOR
   // createdAt: Date; NÃO PRECISA POIS A TABELA CRIARÁ SOZINHA
   file: string;
   album: string;

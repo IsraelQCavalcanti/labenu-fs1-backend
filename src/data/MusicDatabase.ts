@@ -7,11 +7,11 @@ export class MusicDatabase extends BaseDatabase {
     try {
       await this.getConnection()
         .insert({
-          id: music.getId,
-          title: music.getTitle,
-          author: music.getAuthor,
-          file: music.getFile,
-          album: music.getAlbum,
+          id: music.getId(),
+          title: music.getTitle(),
+          author: music.getAuthor(),
+          file: music.getFile(),
+          album: music.getAlbum(),
         })
 
         .into(this.tableNames.music);
