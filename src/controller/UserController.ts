@@ -1,65 +1,80 @@
 import { Request, Response } from "express";
-import { HashManager } from "../services/HashManager";
+
 import { BaseDatabase } from "../data/BaseDatabase";
+import { UserDatabase } from "../data/UserDatabase";
+
+import { SignupBusiness } from "../business/SignupBusiness";
+import { LoginBusiness } from "../business/LoginBusiness";
+
+import { IdGenerator } from "../services/IdGenerator";
+import { HashManager } from "../services/HashManager";
 import { Authenticator } from "../services/Authenticator";
-import { UserInputDTO, LoginInputDTO } from "../model/User";
-import { UserBusiness } from "../business/UserBusiness";
 
 export class UserController {
-  public async signup(req: Request, res: Response) {
+  public signup = async (req: Request, res: Response) => {
     try {
-      const input: UserInputDTO = {
-        email: req.body.email,
-        name: req.body.name,
-        nickname: req.body.nickname,
-        password: req.body.password,
-      };
-
-      // PARA GERAR UMA SENHA ENCRIPTADA COM A SENHA ENVIADA:
-      const hashManager = new HashManager();
-      const hashPassword = await hashManager.hash(input.password);
-
-      // GUARDAR AS INFOS NO BANCO DE DADOS:
-      const userBusiness = new UserBusiness();
-      const userId = await userBusiness.signup(
-        input.name,
-        input.email,
-        input.nickname,
-        hashPassword
+      const signupBusiness = new SignupBusiness(
+        new UserDatabase(),
+        new HashManager(),
+        new IdGenerator()
       );
 
-      // GERAR UM TOKEN PARA O NOVO USUÁRIO:
+      const input = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        nickname: req.body.nickname,
+      };
+
+      if (!input.name || !input.email || !input.password || !input.nickname) {
+        throw new Error("Verifique se todos dados foram inseridos");
+      }
+
+      if (input.password < 6) {
+        throw new Error("Sua senha precisa ter pelo menos 6 dígitos!");
+      }
+      const user = await signupBusiness.execute(input);
+
       const authenticator = new Authenticator();
-      const accessToken = authenticator.generateToken({ id: userId });
 
-      res
-        .status(200)
-        .send("Usuário criado com sucesso!" + { token: accessToken });
-    } catch (error) {
-      res.status(400).send({ error: error.message });
+      const token = authenticator.generateToken({
+        id: user,
+      });
+
+      res.status(200).send({ token });
+
+      return token;
+    } catch (err) {
+      res.status(400).send({ message: err.message });
+    } finally {
+      await BaseDatabase.destroyConnection();
     }
-    await BaseDatabase.destroyConnection();
-  }
+  };
 
-  // VERIFICAR LOGIN
-  public async login(req: Request, res: Response) {
+  public login = async (req: Request, res: Response) => {
     try {
-      const input: LoginInputDTO = {
+      const loginBusiness = new LoginBusiness(
+        new UserDatabase(),
+        new HashManager()
+      );
+      const input = {
         emailOrNickname: req.body.emailOrNickname,
         password: req.body.password,
       };
 
-      const userBusiness = new UserBusiness();
-      const user = await userBusiness.getUserByEmailOrNickname(input);
+      const token = await loginBusiness.execute(input);
 
-      const authenticator = new Authenticator();
-      const accessToken = authenticator.generateToken({ id: user.getId() });
+      if (!input.emailOrNickname || !input.password) {
+        throw new Error("Verifique se todos dados foram inseridos");
+      }
 
-      res.status(200).send({ token: accessToken });
-    } catch (error) {
-      res.status(400).send({ error: error.message });
+      res.status(200).send({ token });
+    } catch (err) {
+      res.status(err.customErrorCode || 400).send({
+        message: err.message,
+      });
+    } finally {
+      await BaseDatabase.destroyConnection();
     }
-
-    await BaseDatabase.destroyConnection();
-  }
+  };
 }

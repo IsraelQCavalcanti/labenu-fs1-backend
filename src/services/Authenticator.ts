@@ -19,7 +19,7 @@ export class Authenticator {
   }
 
   // PARA AUTENTICAR UM TOKEN, PRECISAMOS EXTRAIR AS INFOS DELE:
-  public getData(token: string): AuthenticationData {
+  public verifyToken(token: string): AuthenticationData {
     const payload = jwt.verify(token, process.env.JWT_KEY as string) as any;
     return { id: payload.id };
   }

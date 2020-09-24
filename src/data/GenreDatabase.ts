@@ -16,14 +16,14 @@ export class GenreDatabase extends BaseDatabase {
   }
 
   // INSERIR O GÊNERO E MUSICA NA TABELA QUE JUNTA AMBOS
-  public async insertGenreToMusic(musicId: string, genreId: string[]) {
+  public async insertGenreToMusic(musicId: string, genreId: any[]) {
     const musicGenreInsert = genreId.map((genre) => ({
       music_id: musicId,
-      genre_id: genreId,
+      genre_id: genre.id,
     }));
     try {
       await this.getConnection()
-        .insert({ musicGenreInsert })
+        .insert(musicGenreInsert)
         .into(this.tableNames.musicWithGenreId);
     } catch (error) {
       throw new Error(error.sqlMessage || error.message);
